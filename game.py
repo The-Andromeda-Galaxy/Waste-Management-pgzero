@@ -24,10 +24,18 @@ def draw():
     screen.blit("bg",(0,0))
     if is_game_over:
         display_message("You Lose","Try again")
+    elif is_game_complete:
+        display_message("You Did It","Good Job")
+    else:
+        for item in items:
+            item.draw()
+
         
 
 def update():
-    pass
+    global items
+    if len(items) == 0:
+        items = make_items(current_level)
 
 def make_items(extra_items):
     items_to_create = get_option(extra_items)
@@ -91,7 +99,7 @@ def game_complete():
 
 def stop_animations(animations_to_stop):
     for animation in animations_to_stop:
-        if animation.running():
+        if animation.running:
             animation.stop()
 
 def display_message(main_text,sub_text):
